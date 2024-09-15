@@ -1,0 +1,69 @@
+name: Playwright-Tests
+on:
+  workflow_dispatch:
+
+jobs:
+  setup-and-run-tests:
+    # setup and run the tests in parallel machines, with each machine uploading its own results to artifacts
+    # artifacts are shared among jobs and machines
+    timeout-minutes: 90
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1/2, 2/2]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        run: npx playwright test --shard ${{ matrix.shard }}
+
+      # Once playwright finishes it will create a folder called 'blob-report' where it will put all the reports
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: merged-reports-as-blob # name of the file you want to have once its uploaded
+          path: blob-report # path where the reports are, from where to take the files.
+          retention-days: 3
+
+  merge-reports:
+    # Merge reports after playwright tests, even if some shards have failed
+    if: always()
+    needs: [setup-and-run-tests]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm ci
+
+      # we now download the reports uploaded previously to merge them and create one single html report
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: merged-reports-as-blob # name of the file stored as artifact (as uploaded at the previous job)
+          path: downloaded-merged-reports-as-blob # name of the folder where the download will be saved
+
+      # Playwright will generate a report and store it inside a folder called '/playwright-report'
+      - name: Merge the blobs into one single HTML Report
+        run: npx playwright merge-reports --reporter html ./downloaded-merged-reports-as-blob
+
+      - name: Upload full html report to artifacts for history
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report # name of the file you want to have once its uploaded
+          path: playwright-report # path where the reports are, from where to take the files
+          retention-days: 90
