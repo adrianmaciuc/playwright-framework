@@ -25,7 +25,7 @@ export const homePageSelectors = {
   successfulEntryAddedMsg(page: Page): Locator {
     return page.getByTestId("info-msg-entry-added");
   },
-  viewTaskBtn(page: Page): Locator {
+  viewTeamBtn(page: Page): Locator {
     return page.getByTestId("view-task-btn");
   },
 };

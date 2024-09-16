@@ -1,17 +1,8 @@
 import { test as base } from "@playwright/test";
 
-export function getSecretKey() {
-  let token: string | undefined = process.env.token;
-  if (!token) {
-    throw new Error(
-      `Could not fetch token from environment variables. Received token as: ${token}`
-    );
-  }
-  return token;
-}
-
 const data = {
-  secretKey: getSecretKey(),
+  secretKey: process.env.token!,
+  // any other data you want to pass to your tests. Can be retrieved with `testData` fixture
 };
 
 export const testData = base.extend<{

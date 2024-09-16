@@ -29,7 +29,10 @@ export default defineConfig({
     navigationTimeout: 15 * 1000,
 
     testIdAttribute: "data-testid",
-    baseURL: getBaseUrl(),
+    baseURL:
+      process.env.baseUrl == "dev"
+        ? "http://localhost:5173/"
+        : "https://z.martioli.com/",
     // Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer
     trace: "on-first-retry",
   },
@@ -37,7 +40,7 @@ export default defineConfig({
   projects: [
     {
       name: "global-setup",
-      testMatch: "**/globalSetup.ts",
+      testMatch: /globalSetup.ts/,
     },
     {
       name: "Chrome Web",
@@ -56,11 +59,3 @@ export default defineConfig({
     ["html", { open: "never" }],
   ],
 });
-
-function getBaseUrl() {
-  if (process.env.baseUrl == "dev") {
-    return "http://localhost:5173/";
-  } else {
-    return "https://z.martioli.com/";
-  }
-}

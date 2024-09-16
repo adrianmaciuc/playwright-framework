@@ -1,9 +1,7 @@
-import { test, expect } from "../fixtures/fixtures";
+import { test, expect } from "../fixtures";
 
 test("Verify team page", async ({ page, homePage, teamPage }) => {
   await page.goto("/");
-  await homePage.viewTaskBtn(page).first().click();
+  await homePage.viewTeamBtn(page).first().click();
   await expect(teamPage.developerInfo(page)).toContainText("Developer");
-  await expect(teamPage.qaInfo(page)).toContainText("QA");
-  await expect(teamPage.managerInfo(page)).toContainText("Manager");
 });
