@@ -9,7 +9,8 @@ if (!process.env.baseUrl) {
 
 if (!process.env.token) {
   throw new Error(
-    `Could not fetch token from environment variables. Please set locally in .env file and in CI as github secret. Received token as: ${process.env.token}`
+    `Could not fetch token from environment variables. Please set locally in .env file and in CI as github secret. 
+     Received token as: ${process.env.token}`
   );
 }
 
