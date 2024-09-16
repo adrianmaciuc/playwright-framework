@@ -1,5 +1,4 @@
 import { defineConfig, devices } from "@playwright/test";
-import { getBaseUrl } from "./setup/globalSetup";
 import dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.resolve(__dirname, ".env") });
@@ -37,17 +36,18 @@ export default defineConfig({
   // Configure projects for major browsers
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "global-setup",
+      testMatch: "**/globalSetup.ts",
     },
     {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
+      name: "Chrome Web",
+      use: { ...devices["Desktop Chrome"] },
+      dependencies: ["global-setup"],
     },
   ],
 
   // Global setup
-  globalSetup: require.resolve("./setup/globalSetup.ts"),
+  // globalSetup: require.resolve("./setup/globalSetup.ts"),
   // Output directory for test artifacts.
   outputDir: "test-results",
 
@@ -56,3 +56,11 @@ export default defineConfig({
     ["html", { open: "never" }],
   ],
 });
+
+function getBaseUrl() {
+  if (process.env.baseUrl == "dev") {
+    return "http://localhost:5173/";
+  } else {
+    return "https://z.martioli.com/";
+  }
+}
