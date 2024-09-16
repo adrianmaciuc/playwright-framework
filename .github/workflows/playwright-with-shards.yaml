@@ -1,4 +1,4 @@
-name: Playwright-Tests
+name: Playwright-With-Shards
 on:
   workflow_dispatch:
 
@@ -14,8 +14,8 @@ jobs:
         shard: [1/2, 2/2]
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Install dependencies
@@ -30,7 +30,7 @@ jobs:
       # Once playwright finishes it will create a folder called 'blob-report' where it will put all the reports
       - name: Upload blob report to GitHub Actions Artifacts
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: merged-reports-as-blob # name of the file you want to have once its uploaded
           path: blob-report # path where the reports are, from where to take the files.
@@ -43,8 +43,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
       - name: Install dependencies
@@ -52,7 +52,7 @@ jobs:
 
       # we now download the reports uploaded previously to merge them and create one single html report
       - name: Download blob reports from GitHub Actions Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: merged-reports-as-blob # name of the file stored as artifact (as uploaded at the previous job)
           path: downloaded-merged-reports-as-blob # name of the folder where the download will be saved
@@ -62,7 +62,7 @@ jobs:
         run: npx playwright merge-reports --reporter html ./downloaded-merged-reports-as-blob
 
       - name: Upload full html report to artifacts for history
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: playwright-report # name of the file you want to have once its uploaded
           path: playwright-report # path where the reports are, from where to take the files
