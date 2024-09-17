@@ -31,6 +31,13 @@ The global setup file (`globalSetup.ts`) checks if environment variables used fo
 **CI/CD**
 
 The project includes workflows for Github Actions. Do not forget to setup environment variables needed at CI level.
+Go to settings and add them into repository secret, then add reference for the machine in workflow file like this:
+
+```yaml
+env:
+  TOKEN: ${{ secrets.TOKEN }}
+  ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
+```
 
 **Contributing**
 
