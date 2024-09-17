@@ -19,8 +19,10 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   // Retry on CI only
   retries: process.env.CI ? 1 : 0,
-  // Uses 70% of available workers per machine. If for example your machine can do maximum of 3 workers then Playwright will use 2.
+  // Uses 70% of available workers per machine. Workers available depends on CPU Cores of the machine
+  // If your machine can do maximum of 3 workers then 70% means it will use 2.
   workers: "70%",
+
   // Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions.
   use: {
     // Maximum amount of time each action such as `click()` can take.
@@ -36,7 +38,7 @@ export default defineConfig({
     // Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer
     trace: "on-first-retry",
   },
-  // Configure projects for major browsers
+
   projects: [
     {
       name: "global-setup",
@@ -49,13 +51,8 @@ export default defineConfig({
     },
   ],
 
-  // Global setup
-  // globalSetup: require.resolve("./setup/globalSetup.ts"),
   // Output directory for test artifacts.
   outputDir: "test-results",
 
-  reporter: [
-    ["dot", { outputFile: "test-results/test-results.log" }],
-    ["html", { open: "never" }],
-  ],
+  reporter: [["list"], ["html", { open: "never" }]],
 });

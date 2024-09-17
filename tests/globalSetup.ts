@@ -1,4 +1,4 @@
-import { test as setup, defineConfig } from "@playwright/test";
+import { test as setup } from "@playwright/test";
 
 // Both local and CI environment variables setup check. If they error out during development it means you did not setup your .env file properly
 if (!process.env.baseUrl) {
@@ -12,14 +12,6 @@ if (!process.env.token) {
     `Could not fetch token from environment variables. Please set locally in .env file and in CI as github secret. 
      Received token as: ${process.env.token}`
   );
-}
-
-function getBaseUrl() {
-  if (process.env.baseUrl == "dev") {
-    return "http://localhost:5173/";
-  } else if (process.env.CI) {
-    return "https://z.martioli.com/";
-  }
 }
 
 setup("global setup", async ({}) => {});
