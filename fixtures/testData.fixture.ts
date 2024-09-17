@@ -1,7 +1,7 @@
 import { test as base } from "@playwright/test";
 
 const data = {
-  secretKey: process.env.token!,
+  secretKey: process.env.TOKEN!,
   // any other data you want to pass to your tests. Can be retrieved with `testData` fixture
 };
 
