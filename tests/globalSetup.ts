@@ -14,4 +14,12 @@ if (!process.env.token) {
   );
 }
 
+function getBaseUrl() {
+  if (process.env.baseUrl == "dev") {
+    return "http://localhost:5173/";
+  } else if (process.env.CI) {
+    return "https://z.martioli.com/";
+  }
+}
+
 setup("global setup", async ({}) => {});
