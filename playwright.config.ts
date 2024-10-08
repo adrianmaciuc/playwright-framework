@@ -32,7 +32,7 @@ export default defineConfig({
 
     testIdAttribute: "data-testid",
     baseURL:
-      process.env.baseUrl == "dev"
+      process.env.ENVIRONMENT == "dev"
         ? "http://localhost:5173/"
         : "https://z.martioli.com/",
     // Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer
