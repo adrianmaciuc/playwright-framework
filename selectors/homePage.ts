@@ -34,4 +34,7 @@ export class HomePage {
   viewTeamBtn(): Locator {
     return this.page.getByTestId("view-task-btn");
   }
+  teamName(): Locator {
+    return this.page.getByTestId("card-teamname");
+  }
 }
