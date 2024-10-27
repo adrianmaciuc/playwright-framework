@@ -1,6 +1,6 @@
 import { test, expect } from "../fixtures";
 
-test.describe("Multiple Elements", () => {
+test.describe("Multiple Elements ", () => {
   test("Validate attributes of multiple elements", async ({
     page,
     homePage,
