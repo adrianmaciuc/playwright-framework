@@ -43,6 +43,8 @@ env:
 
 I followed this article https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94
 Which uses this plugin https://github.com/playwright-community/eslint-plugin-playwright
+CI Has a static-check job that has to pass in order to run the test, so be careful in not introducing any errors
+After you have written your code you can do `npm run pre-check` in root folder to check for errors.
 
 **Contributing**
 
