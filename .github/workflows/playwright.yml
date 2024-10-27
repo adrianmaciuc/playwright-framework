@@ -7,7 +7,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  static-check:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Static Check
+        run: npm run pre-check
+
   test-run:
+    needs: static-check
+    if: success()
     timeout-minutes: 90
     runs-on: ubuntu-latest
     container:
