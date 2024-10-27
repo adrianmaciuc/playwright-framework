@@ -1,10 +1,6 @@
 import { test, expect } from "../fixtures";
 
 test.describe("Multiple Requests", () => {
-  test.afterEach("Unroute all", async ({ page }) => {
-    await page.unrouteAll({ behavior: "wait" });
-  });
-
   test("Validate multiple same requests", async ({ page, homePage }) => {
     const requests: string[] = [];
     await page.route("**/api/**", async (route) => {
@@ -26,5 +22,8 @@ test.describe("Multiple Requests", () => {
       intervals: [1_000, 2_000, 5_000],
       timeout: 15_000,
     });
+  });
+  test.afterEach("Unroute all", async ({ page }) => {
+    await page.unrouteAll({ behavior: "wait" });
   });
 });
