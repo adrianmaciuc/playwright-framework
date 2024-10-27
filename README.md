@@ -39,6 +39,11 @@ env:
   ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
 ```
 
+**Linters**
+
+I followed this article https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94
+Which uses this plugin https://github.com/playwright-community/eslint-plugin-playwright
+
 **Contributing**
 
 To contribute to this project, fork the repository and create a new branch for your changes. Submit a pull request to the main branch, and include a detailed description of your changes.

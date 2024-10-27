@@ -2,7 +2,9 @@
   "name": "playwright-complete-framework",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "pre-check": "npx eslint ."
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -11,7 +13,9 @@
     "@faker-js/faker": "^9.0.1",
     "@playwright/test": "^1.47.0",
     "@types/node": "^22.5.4",
-    "eslint": "^9.10.0"
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
+    "eslint-plugin-playwright": "^2.0.0"
   },
   "dependencies": {
     "dotenv": "^16.4.5"

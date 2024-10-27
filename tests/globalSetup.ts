@@ -14,4 +14,6 @@ if (!process.env.TOKEN) {
   );
 }
 
-setup("global setup", async ({}) => {});
+setup("global setup", async ({ baseURL }) => {
+  console.log(`baseUrl set to : ${baseURL}`);
+});
