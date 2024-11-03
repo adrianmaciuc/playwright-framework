@@ -1,89 +1,92 @@
-Here's a polished and professionally formatted README for your project. I've added markdown sections, enhanced explanations, and ensured readability for easier navigation.
-
 ---
-
 # Playwright Framework Example
+---
 
-## Project Overview
+## Project Overview <a href="#project-overview" id="project-overview">🔗</a>
 
-This project provides a **modular and scalable Playwright framework** example. It brings together various features, logic, and best practices to serve as a comprehensive learning resource. Instead of dividing the README into functionalities, folders, or business logic sections, this guide follows a **build-up path** to help you understand each line of code and guide you to implement it yourself.
+This project provides a **modular and scalable Playwright framework** example. It brings together various features, logic, and best practices to serve as a comprehensive learning resource. Instead of dividing the README into functionalities, folders, or business logic sections, this guide follows a **build-up path** to help you understand each line of code and empower you to implement it yourself.
 
 ---
 
-## The Build-up Path
+## The Build-up Path <a href="#the-build-up-path" id="the-build-up-path">🔗</a>
 
-### Initial Setup
+### 1. Initial Setup <a href="#1-initial-setup" id="1-initial-setup">🔗</a>
 
 Before getting started, ensure you have the following installed:
 
 - **Git**
 - **Node.js**
 
-1. **Install Playwright**
+#### 1.1 Install Playwright <a href="#11-install-playwright" id="11-install-playwright">🔗</a>
 
-   Run the following command to set up Playwright:
+Run the following command to set up Playwright:
 
-   ```bash
-   npm init playwright@latest
-   ```
+```bash
+npm init playwright@latest
+```
 
-   During setup, select the following options:
+During setup, select the following options:
 
-   - **TypeScript**
-   - **Folder: tests**
-   - **Add GitHub Actions Workflow** (optional)
-   - **Install Playwright browsers**
-   - Optionally, install **Playwright OS dependencies**
+- **TypeScript**
+- **Folder: tests**
+- **Add GitHub Actions Workflow** (optional)
+- **Install Playwright browsers**
+- Optionally, install **Playwright OS dependencies**
 
-2. **Install dotenv**
+#### 1.2 Install dotenv <a href="#12-install-dotenv" id="12-install-dotenv">🔗</a>
 
-   To handle tokens and secrets for both local and CI environments, install `dotenv`:
+To handle tokens and secrets for both local and CI environments, install `dotenv`:
 
-   ```bash
-   npm install dotenv
-   ```
+```bash
+npm install dotenv
+```
 
-   Then, create a `.env` file at the root level and add the following variables:
+Then, create a `.env` file at the root level and add the following variables:
 
-   - `ENVIRONMENT`: `dev`  
-     The environment to run tests in.
-   - `TOKEN`: `magictoken`  
-     An example token or secret key you may store locally or fetch from GitHub Secrets for CI runs.
+- `ENVIRONMENT`: `dev`  
+  The environment to run tests in.
+- `TOKEN`: `magictoken`  
+  An example token or secret key you may store locally or fetch from GitHub Secrets for CI runs.
 
-   To integrate dotenv, import it in your `playwright.config.ts` file and add `dotenv.config()` at the top:
+To integrate dotenv, import it in your `playwright.config.ts` file and add `dotenv.config()` at the top:
 
-   ```typescript
-   import dotenv from "dotenv";
-   dotenv.config();
-   ```
+```typescript
+import dotenv from "dotenv";
+dotenv.config();
+```
 
 ---
 
-### Additional Helpers for Your Setup
+### 2. Additional Helpers for Your Setup <a href="#2-additional-helpers-for-your-setup" id="2-additional-helpers-for-your-setup">🔗</a>
 
-1. **Install Linters and Plugins**
+#### 2.1 Install Linters and Plugins <a href="#21-install-linters-and-plugins" id="21-install-linters-and-plugins">🔗</a>
 
-   To enforce best practices, add linters and plugins for TypeScript and Playwright. Follow this guide for details: [Setting up ESLint for Playwright Projects with TypeScript](https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94).
+To enforce best practices, add linters and plugins for TypeScript and Playwright. Follow this guide for details: [Setting up ESLint for Playwright Projects with TypeScript](https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94).
 
-   ```bash
-   npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-playwright
-   ```
+```bash
+npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-playwright
+```
 
-   Next, create an `eslint.config.js` file and configure the linters. You may use the rule settings from this project as a reference.
+Next, create an `eslint.config.js` file and configure the linters. You may use the rule settings from this project as a reference.
 
-2. **Configure `tsconfig.json`**
+#### 2.2 Configure `tsconfig.json` <a href="#22-configure-tsconfigjson" id="22-configure-tsconfigjson">🔗</a>
 
-   At the root of the project, create a `tsconfig.json` file. Use this project’s `tsconfig.json` as a guide, focusing on configuring it as a **module-based project** that allows both `import/export` and `require()` syntax. Remember to update `package.json` with `"type": "module"`:
+At the root of the project, create a `tsconfig.json` file. Use this project’s `tsconfig.json` as a guide, focusing on configuring it as a **module-based project** that allows both `import/export` and `require()` syntax. Remember to update `package.json` with `"type": "module"`:
 
-   ```json
-   {
-     "type": "module"
-   }
-   ```
+```json
+{
+  "type": "module"
+}
+```
 
 ---
 
 By following these steps, you'll have a well-structured, professional Playwright setup that adheres to modern coding practices and facilitates seamless CI/CD integration. Enjoy building and learning!
+
+---
+
+With this setup, each anchor link icon 🔗 is clickable and can be used to link to specific sections directly. This approach works well for GitHub and Markdown viewers that support HTML.
+
 **Environment Variables**
 
 The project uses the following environment variables:
