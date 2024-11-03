@@ -1,14 +1,16 @@
 ---
-# Playwright Framework Example
+# Playwright COMPLETE Framework Example
 ---
 
 ## Project Overview
 
-This project provides a **modular and scalable Playwright framework** example. It brings together various features, logic, and best practices to serve as a comprehensive learning resource. Instead of dividing the README into functionalities, folders, or business logic sections, this guide follows a **build-up path** to help you understand each line of code and empower you to implement it yourself.
+This project provides a **modular and scalable Playwright framework** example. It brings together various features, logic, and best practices to serve as a comprehensive learning resource that replicate a real framework used in production. Instead of dividing the README into functionalities, folders, or business logic sections, this document follows a **build-up path** to help you understand each line of code and guide you to implement it yourself.
 
 ---
 
 ## The Build-up Path
+
+--
 
 ### 1. Initial Setup
 
@@ -16,6 +18,8 @@ Before getting started, ensure you have the following installed:
 
 - **Git**
 - **Node.js**
+
+--
 
 #### 1.1 Install Playwright
 
@@ -32,6 +36,8 @@ During setup, select the following options:
 - Add GitHub Actions Workflow
 - Install Playwright browsers
 - Optionally, install Playwright OS dependencies
+
+--
 
 #### 1.2 Install dotenv
 
@@ -59,6 +65,8 @@ dotenv.config();
 
 ### 2. Additional Helpers for Your Setup
 
+--
+
 #### 2.1 Install Linters and Plugins
 
 To enforce best practices, add linters and plugins for TypeScript and Playwright. Follow this guide for details: [Setting up ESLint for Playwright Projects with TypeScript](https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94).
@@ -70,6 +78,8 @@ npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-pl
 Next, create an `eslint.config.js` file and configure the linters. You may use the rule settings from this project as a reference.
 For info it uses the [recommended typescript rules](https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended.ts) and this [eslint plugin for typescript](https://github.com/playwright-community/eslint-plugin-playwright)
 
+--
+
 #### 2.2 Configure `tsconfig.json`
 
 At the root of the project, create a `tsconfig.json` file. Use this project’s `tsconfig.json` as a guide, focusing on configuring it as a **module-based project** that allows both `import/export` and `require()` syntax. Remember to update `package.json` with `"type": "module"`:
@@ -80,7 +90,11 @@ At the root of the project, create a `tsconfig.json` file. Use this project’s 
 }
 ```
 
+---
+
 ### 3. Framework configs
+
+--
 
 #### 3.1 Playwright main config file
 
@@ -92,13 +106,17 @@ A few key points to highlight some of the reasons behind the values set in `play
 - Projects have a `globalSetup` as dependency to fail quickly in case of setup failures
 - Reporters are multiple. Some are for quick access in CI while others for detailed debugging
 
+--
+
 #### 3.2 Playwright globalSetup file
 
 The global setup file (`globalSetup.ts`) checks if environment variables used for config are setup properly both for local and CI. It can perform other test runs related configurations that you can easily add inside the `setup()` function. You can do here test-data, environment related setup or others. This file is also a dependency for all tests. It runs first before all tests and if it fails, then no tests are run.
 
+--
+
 #### 3.3 Playwright fixture files
 
-For flexibility and easy access [Fixtures feature from Playwright](https://playwright.dev/docs/test-fixtures) is used here to "mix" pages, selectors, test data and other details. For example `pages.fixture.ts` reference to selectors grouped by page, and `testData.fixture.ts` has data fetched from env vars or third party apps. They all have their own separate files with instantiation of objects. All are merged together in `fixtures/index.ts`. And can easily be access inside any test. Here is an example:
+For flexibility and easy access [Fixtures feature from Playwright](https://playwright.dev/docs/test-fixtures) is used here to "mix" pages, selectors, test data and other details. For example `pages.fixture.ts` will reference the pages in the project that store maybe page methods or page specific locators, while `testData.fixture.ts` has data fetched from env vars or third party apps. They all have their own separate files with instantiation of objects. All are merged together in `fixtures/index.ts`. And can easily be accessed inside any test. Here is an example:
 
 ```typescript
 test("Add new entry on home page", async ({ page, homePage, testData }) => {

@@ -12,9 +12,14 @@ test.describe("Home Page", () => {
     await expect(cardsFeature.cardID().first()).toBeVisible();
   });
 
-  test("Add new entry on home page", async ({ page, homePage, testData }) => {
+  test("Add new entry on home page", async ({
+    page,
+    homePage,
+    testData,
+    utils,
+  }) => {
     await page.goto("/");
-    await homePage.developerInputField().fill(faker.person.firstName());
+    await homePage.developerInputField().fill(utils.generateRandomString(6));
     await homePage.qaInputField().fill(faker.person.firstName());
     await homePage.managerInputField().fill(faker.person.firstName());
     await homePage.teamNameInputField().fill(faker.company.name());
