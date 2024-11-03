@@ -84,7 +84,7 @@ At the root of the project, create a `tsconfig.json` file. Use this project’s 
 
 #### 3.1 Playwright main config file
 
-A few key points to highlight some of the reasons behind the values set:
+A few key points to highlight some of the reasons behind the values set in `playwright.config.ts`:
 
 - `Timeouts` are important to avoid failing tests that take too long to throw an error in CI. If needed , read [this article about timeouts](https://www.bondaracademy.com/blog/playwright-timeout-30000ms-exceeded)
 - It focuses on full paralelisation. If needed, [read this article](https://blog.martioli.com/playwright-with-allure-reporter-published-on-aws-s3-bucket-full-parallelization/)
@@ -92,11 +92,21 @@ A few key points to highlight some of the reasons behind the values set:
 - Projects have a `globalSetup` as dependency to fail quickly in case of setup failures
 - Reporters are multiple. Some are for quick access in CI while others for detailed debugging
 
-For flexibility and easy access Fixtures feature from Playwright is used here to "mix" pages with test data and other details. For example `pages.fixture.ts` reference to selectors grouped by page, and `testData.fixture.ts` has data fetched from env vars or third party apps. They all have their own separate files with instantiation of objects based on classes from `selectors` folder or just values fetched and handled within the same fixture file. All are merged together in `fixtures/index.ts`
+#### 3.2 Playwright globalSetup file
 
-**Global Setup**
+The global setup file (`globalSetup.ts`) checks if environment variables used for config are setup properly both for local and CI. It can perform other test runs related configurations that you can easily add inside the `setup()` function. You can do here test-data, environment related setup or others. This file is also a dependency for all tests. It runs first before all tests and if it fails, then no tests are run.
 
-The global setup file (`globalSetup.ts`) checks if environment variables used for config are setup properly and performs other framework related setup. This file is also a dependency for all tests. It runs first before all tests and if it fails, then no tests are run.
+#### 3.3 Playwright fixture files
+
+For flexibility and easy access [Fixtures feature from Playwright](https://playwright.dev/docs/test-fixtures) is used here to "mix" pages, selectors, test data and other details. For example `pages.fixture.ts` reference to selectors grouped by page, and `testData.fixture.ts` has data fetched from env vars or third party apps. They all have their own separate files with instantiation of objects. All are merged together in `fixtures/index.ts`. And can easily be access inside any test. Here is an example:
+
+```typescript
+test("Add new entry on home page", async ({ page, homePage, testData }) => {
+  await page.goto("/");
+  await homePage.developerInputField().fill("dev");
+  await homePage.secretKeyInputField().fill(testData.secretKey);
+});
+```
 
 **CI/CD**
 
