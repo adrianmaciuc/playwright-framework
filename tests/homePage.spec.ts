@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "../fixtures/index.ts";
 import { faker } from "@faker-js/faker";
 
 test.describe("Home Page", () => {

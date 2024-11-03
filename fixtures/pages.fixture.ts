@@ -1,6 +1,6 @@
 import { test as base } from "@playwright/test";
-import { HomePage } from "../selectors/homePage";
-import { TeamPage } from "../selectors/teamPage";
+import { HomePage } from "../selectors/homePage.ts";
+import { TeamPage } from "../selectors/teamPage.ts";
 
 export const pages = base.extend<{
   homePage: HomePage;

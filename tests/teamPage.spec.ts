@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "../fixtures/index.ts";
 
 test.describe("Team Page", () => {
   test("Verify team page", async ({ page, homePage, teamPage }) => {

@@ -1,5 +1,5 @@
 import { test as base } from "@playwright/test";
-import { CardsFeature } from "../selectors/cardsFeature";
+import { CardsFeature } from "../selectors/cardsFeature.ts";
 
 export const cardsFeature = base.extend<{
   cardsFeature: CardsFeature;

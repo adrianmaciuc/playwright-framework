@@ -2,14 +2,51 @@
 
 **Project Overview**
 
-This project is a Playwright framework example that attempts to partially follow the POM pattern, with focus on using Playwright builtin methods instead of creating custom methods for each test step. Classes are here just to keep selectors and handle the driver. Selectors are not grouped just per page but per various logic such as features, common and others
+This project is a Playwright framework example where all the features, logics, ideas have been put together to showcase a modular and scalable framework.
 
-**Directory Structure**
+Instead of grouping this readme per functionalities, folders or business logic you will find a `build up path` that will help you understand each line of code and learn how do it your yourself.
 
-- `.github/workflows`: Contains workflow configuration files for CI/CD
-- `fixtures`: Contains reference towards test data, pages and others to be easy accesibile inside tests
-- `selectors`: Contains all the selectors used in test and are not limited to pages only. It can be from features, pages or others
-- `tests`: Where all the tests can be found. It also includes `globalSetup.ts`
+**_The Build-up Path_**
+
+**Initial Setup**
+
+- Have `git` and `Node` installed
+
+1. Install Playwright:
+
+```cmd
+npm init playwright@latest
+```
+
+Use the followings:
+Typescript -> Folder tests -> add github actions workflow -> Install playwright browsers -> optional for playwright OS dependencies
+
+2. Install dotenv for handling tokens and secrets both local and for CI
+
+```cmd
+npm install dotenv
+```
+
+Create a `.env` file at root level and add the above variables
+
+- `ENVIRONMENT`:`dev` The environment for running tests.
+- `TOKEN`:`magictoken` Example of any secret key you may need to be stored locally or fetched from Github secrets for CI runs
+
+To add dotenv to your project, import dotenv in `playwright.config.ts` and add `dotenv.config()` at the top of the file
+
+**Additional helpers for your setup**
+
+1. Install linters and plugins to force rules of best practice
+   https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94
+
+```cmd
+npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-playwright
+```
+
+Create a file called `eslint.config.js` and config linters. Each one with their own rules, but I recommend using the ones found here in my project.
+
+2. Configure your tsconfig.json file
+   Create a file at the root folder named `tsconfig.json`. Use this projects file `tsconfig.json` contents. It mainly focuses on a `module` kind of project that can do import export and also have the possibility to use `require()`. Remember to update your `package.json` file with the value `"type": "module"`
 
 **Environment Variables**
 
@@ -17,8 +54,6 @@ The project uses the following environment variables:
 
 - `ENVIRONMENT`:`dev` The environment for local run of tests (required)
 - `TOKEN`:`magictoken` The secret key for authentication (required) (not public)
-
-Please create a `.env` file at root level and add the above variables
 
 **Fixtures**
 

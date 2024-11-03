@@ -14,7 +14,7 @@ export default [
       parser: typescriptParser,
       parserOptions: {
         ecmaVersion: "latest",
-        sourceType: "commonjs",
+        sourceType: "module",
       },
     },
     rules: {

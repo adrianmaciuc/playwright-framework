@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "../fixtures/index.ts";
 
 test.describe("Multiple Elements", () => {
   test("Validate attributes of multiple elements", async ({

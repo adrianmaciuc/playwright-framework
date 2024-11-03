@@ -1,7 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
-import path from "path";
-dotenv.config({ path: path.resolve(__dirname, ".env") });
+dotenv.config();
 
 export default defineConfig({
   // Maximum time the whole test run can take. Applies to all tests in your suite collectively.

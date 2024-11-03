@@ -1,9 +1,10 @@
-import { test, expect } from "../fixtures";
+import { test, expect } from "../fixtures/index.js";
+import { Route } from "@playwright/test";
 
 test.describe("Multiple Requests", () => {
   test("Validate multiple same requests", async ({ page, homePage }) => {
     const requests: string[] = [];
-    await page.route("**/api/**", async (route) => {
+    await page.route("**/api/**", async (route: Route) => {
       if (route.request().url().includes("id/1")) {
         await route.continue();
         const response = await (await route.request().response())?.json();
