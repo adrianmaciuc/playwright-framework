@@ -8,7 +8,7 @@ This project provides a **modular and scalable Playwright framework** example. I
 
 ---
 
-## The Build-up Path <a href="#the-build-up-path" id="the-build-up-path">🔗</a>
+## The Build-up Path
 
 ### 1. Initial Setup <a href="#1-initial-setup" id="1-initial-setup">🔗</a>
 
