@@ -1,53 +1,89 @@
-**README**
+Here's a polished and professionally formatted README for your project. I've added markdown sections, enhanced explanations, and ensured readability for easier navigation.
 
-**Project Overview**
+---
 
-This project is a Playwright framework example where all the features, logics, ideas have been put together to showcase a modular and scalable framework.
+# Playwright Framework Example
 
-Instead of grouping this readme per functionalities, folders or business logic you will find a `build up path` that will help you understand each line of code and learn how do it your yourself.
+## Project Overview
 
-**_The Build-up Path_**
+This project provides a **modular and scalable Playwright framework** example. It brings together various features, logic, and best practices to serve as a comprehensive learning resource. Instead of dividing the README into functionalities, folders, or business logic sections, this guide follows a **build-up path** to help you understand each line of code and guide you to implement it yourself.
 
-**Initial Setup**
+---
 
-- Have `git` and `Node` installed
+## The Build-up Path
 
-1. Install Playwright:
+### Initial Setup
 
-```cmd
-npm init playwright@latest
-```
+Before getting started, ensure you have the following installed:
 
-Use the followings:
-Typescript -> Folder tests -> add github actions workflow -> Install playwright browsers -> optional for playwright OS dependencies
+- **Git**
+- **Node.js**
 
-2. Install dotenv for handling tokens and secrets both local and for CI
+1. **Install Playwright**
 
-```cmd
-npm install dotenv
-```
+   Run the following command to set up Playwright:
 
-Create a `.env` file at root level and add the above variables
+   ```bash
+   npm init playwright@latest
+   ```
 
-- `ENVIRONMENT`:`dev` The environment for running tests.
-- `TOKEN`:`magictoken` Example of any secret key you may need to be stored locally or fetched from Github secrets for CI runs
+   During setup, select the following options:
 
-To add dotenv to your project, import dotenv in `playwright.config.ts` and add `dotenv.config()` at the top of the file
+   - **TypeScript**
+   - **Folder: tests**
+   - **Add GitHub Actions Workflow** (optional)
+   - **Install Playwright browsers**
+   - Optionally, install **Playwright OS dependencies**
 
-**Additional helpers for your setup**
+2. **Install dotenv**
 
-1. Install linters and plugins to force rules of best practice
-   https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94
+   To handle tokens and secrets for both local and CI environments, install `dotenv`:
 
-```cmd
-npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-playwright
-```
+   ```bash
+   npm install dotenv
+   ```
 
-Create a file called `eslint.config.js` and config linters. Each one with their own rules, but I recommend using the ones found here in my project.
+   Then, create a `.env` file at the root level and add the following variables:
 
-2. Configure your tsconfig.json file
-   Create a file at the root folder named `tsconfig.json`. Use this projects file `tsconfig.json` contents. It mainly focuses on a `module` kind of project that can do import export and also have the possibility to use `require()`. Remember to update your `package.json` file with the value `"type": "module"`
+   - `ENVIRONMENT`: `dev`  
+     The environment to run tests in.
+   - `TOKEN`: `magictoken`  
+     An example token or secret key you may store locally or fetch from GitHub Secrets for CI runs.
 
+   To integrate dotenv, import it in your `playwright.config.ts` file and add `dotenv.config()` at the top:
+
+   ```typescript
+   import dotenv from "dotenv";
+   dotenv.config();
+   ```
+
+---
+
+### Additional Helpers for Your Setup
+
+1. **Install Linters and Plugins**
+
+   To enforce best practices, add linters and plugins for TypeScript and Playwright. Follow this guide for details: [Setting up ESLint for Playwright Projects with TypeScript](https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94).
+
+   ```bash
+   npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-playwright
+   ```
+
+   Next, create an `eslint.config.js` file and configure the linters. You may use the rule settings from this project as a reference.
+
+2. **Configure `tsconfig.json`**
+
+   At the root of the project, create a `tsconfig.json` file. Use this project’s `tsconfig.json` as a guide, focusing on configuring it as a **module-based project** that allows both `import/export` and `require()` syntax. Remember to update `package.json` with `"type": "module"`:
+
+   ```json
+   {
+     "type": "module"
+   }
+   ```
+
+---
+
+By following these steps, you'll have a well-structured, professional Playwright setup that adheres to modern coding practices and facilitates seamless CI/CD integration. Enjoy building and learning!
 **Environment Variables**
 
 The project uses the following environment variables:
