@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "pre-check": "npx eslint ."
+    "pre-check": "npx eslint .",
+    "regression": "npx playwright test --grep @regression"
   },
   "keywords": [],
   "author": "",

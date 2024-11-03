@@ -84,12 +84,6 @@ For info it uses the [recommended typescript rules](https://github.com/typescrip
 
 At the root of the project, create a `tsconfig.json` file. Use this project’s `tsconfig.json` as a guide, focusing on configuring it as a **module-based project** that allows both `import/export` and `require()` syntax. Remember to update `package.json` with `"type": "module"`:
 
-```json
-{
-  "type": "module"
-}
-```
-
 ---
 
 ### 3. Framework configs
@@ -110,7 +104,7 @@ A few key points to highlight some of the reasons behind the values set in `play
 
 #### 3.2 Playwright globalSetup file
 
-The global setup file (`globalSetup.ts`) checks if environment variables used for config are setup properly both for local and CI. It can perform other test runs related configurations that you can easily add inside the `setup()` function. You can do here test-data, environment related setup or others. This file is also a dependency for all tests. It runs first before all tests and if it fails, then no tests are run.
+Create a global setup file (`globalSetup.ts`) in your `/tests` folder. This checks if environment variables used for config are setup properly both for local and CI. It can perform other test runs related configurations that you can easily add inside the `setup()` function. You can do here test-data, environment related setup or others. This file is also a dependency for all tests. It runs first before all tests and if it fails, then no tests are run.
 
 --
 
@@ -126,7 +120,9 @@ test("Add new entry on home page", async ({ page, homePage, testData }) => {
 });
 ```
 
-**CI/CD**
+-
+
+#### 3.4 **CI** Github Actions Setup
 
 The project includes workflows for Github Actions. Do not forget to setup environment variables needed at CI level.
 Go to settings and add them into repository secret, then add reference for the machine in workflow file like this:
@@ -137,12 +133,29 @@ env:
   ENVIRONMENT: ${{ secrets.ENVIRONMENT }}
 ```
 
-**Linters**
+---
 
-I followed this article https://ceroshjacob.medium.com/setting-up-eslint-for-playwright-projects-with-typescript-12fab098bd94
-Which uses this plugin https://github.com/playwright-community/eslint-plugin-playwright
-CI Has a static-check job that has to pass in order to run the test, so be careful in not introducing any errors
-After you have written your code you can do `npm run pre-check` in root folder to check for errors.
+### 4. Running tests
+
+-
+
+#### 4.1 Running tests locally
+
+-
+
+#### 4.2 Running tests on CI
+
+---
+
+### 5. Reporters
+
+-
+
+#### 5.1 Playwright built-in reporters
+
+-
+
+#### 5.2 Allure Playwright plugin
 
 **Contributing**
 
