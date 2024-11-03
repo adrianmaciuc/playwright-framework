@@ -74,12 +74,6 @@ For info it uses the [recommended typescript rules](https://github.com/typescrip
 
 At the root of the project, create a `tsconfig.json` file. Use this project’s `tsconfig.json` as a guide, focusing on configuring it as a **module-based project** that allows both `import/export` and `require()` syntax. Remember to update `package.json` with `"type": "module"`:
 
-```json
-{
-  "type": "module"
-}
-```
-
 ### 3. Framework configs
 
 #### 3.1 Playwright main config file
