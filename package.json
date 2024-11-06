@@ -4,8 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "pre-check": "npx eslint .",
-    "regression": "npx playwright test --grep @regression"
+    "static-check": "npx eslint .",
+    "regression": "npm run static-check && npx playwright test --grep @regression",
+    "runAll": "npm run static-check && npx playwright test"
   },
   "keywords": [],
   "author": "",

@@ -2,15 +2,15 @@ import { test, expect } from "../fixtures/index.ts";
 import { faker } from "@faker-js/faker";
 
 test.describe("Home Page", () => {
-  test("Verify cards are loaded on home page", async ({
-    page,
-    commonFeatures,
-    cardsFeature,
-  }) => {
-    await page.goto("/");
-    await expect(commonFeatures.loadingSpinner()).not.toBeVisible();
-    await expect(cardsFeature.cardID().first()).toBeVisible();
-  });
+  test(
+    "Verify cards are loaded on home page",
+    { tag: "@regression" },
+    async ({ page, commonFeatures, cardsFeature }) => {
+      await page.goto("/");
+      await expect(commonFeatures.loadingSpinner()).not.toBeVisible();
+      await expect(cardsFeature.cardID().first()).toBeVisible();
+    }
+  );
 
   test("Add new entry on home page", async ({
     page,
