@@ -155,7 +155,18 @@ In your workflow, have your jobs make use of the scripts from package.json by ca
 
 ### 5. Reporters
 
--
+Playwright has its own built-in reporter and its pretty awesome, however I have found that Allure best fit most of my needs.
+Also you can mix them for practicability purposes
+
+reporter: list - is good for CI for a first view on the failures
+reporter: json - is good if you ever want to take all the results and publish messages in slack
+reporter: allure-playwright - most comprehensive reporter
+
+To install allure reporter you must do
+
+```cmd
+npm install allure-playwright allure-commandline
+```
 
 #### 5.1 Playwright built-in reporters
 

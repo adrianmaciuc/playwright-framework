@@ -6,7 +6,10 @@
   "scripts": {
     "static-check": "npx eslint .",
     "regression": "npm run static-check && npx playwright test --grep @regression",
-    "runAll": "npm run static-check && npx playwright test"
+    "runAll": "npm run clean-reports && npm run static-check && npx playwright test",
+    "allure-report-single": "npx allure generate --single-file",
+    "allure-report": "npx allure generate allure-results --clean && npx allure serve allure-results",
+    "clean-reports": "node reportsCleanup.js"
   },
   "keywords": [],
   "author": "",
@@ -14,13 +17,15 @@
   "description": "",
   "devDependencies": {
     "@faker-js/faker": "^9.0.1",
-    "@playwright/test": "^1.47.0",
+    "@playwright/test": "^1.49.0",
     "@types/node": "^22.5.4",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
     "eslint-plugin-playwright": "^2.0.0"
   },
   "dependencies": {
+    "allure-commandline": "^2.32.0",
+    "allure-playwright": "^3.0.6",
     "dotenv": "^16.4.5"
   }
 }

@@ -1,8 +1,14 @@
 node_modules/
 /test-results/
-/playwright-report/
-/blob-report/
 /playwright/.cache/
 
 # env
 .env
+
+# reports
+/playwright-report/
+/blob-report/
+/json-results
+/allure-results
+/allure-report
+/ctrf

@@ -53,5 +53,5 @@ export default defineConfig({
   // Output directory for test artifacts.
   outputDir: "test-results",
 
-  reporter: [["list"], ["github"], ["html", { open: "never" }]],
+  reporter: [["list"], ["allure-playwright"], ["html", { open: "never" }]],
 });

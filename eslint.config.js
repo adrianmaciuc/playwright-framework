@@ -23,25 +23,19 @@ export default [
       // https://github.com/playwright-community/eslint-plugin-playwright
       ...playwright.configs["flat/recommended"].rules,
 
-      "playwright/no-useless-not": "off",
       "playwright/no-commented-out-tests": "error",
+      "playwright/prefer-to-have-count": "error",
+      "playwright/prefer-to-contain": "error",
       "playwright/no-raw-locators": "warn",
-      "playwright/no-skipped-test": "off",
-      "playwright/no-wait-for-timeout": "off",
       "playwright/prefer-comparison-matcher": "warn",
       "playwright/prefer-hooks-in-order": "warn",
       "playwright/prefer-hooks-on-top": "warn",
       "playwright/prefer-native-locators": "warn",
       "playwright/prefer-locator": "warn",
-      "playwright/prefer-to-contain": "error",
-      "playwright/prefer-to-have-count": "error",
       "playwright/require-top-level-describe": "warn",
-      "playwright/no-restricted-matchers": [
-        "error",
-        {
-          toBeFalsy: "Use `toBe(false)` instead.",
-        },
-      ],
+      "playwright/no-wait-for-timeout": "off",
+      "playwright/no-skipped-test": "off",
+      "playwright/no-useless-not": "off",
     },
   },
 ];
