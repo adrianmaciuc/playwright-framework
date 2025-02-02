@@ -1,10 +1,11 @@
 /**
  * Fix with AI attachment to failed Playwright tests.
  */
-import fs from 'node:fs';
-import { Page, TestInfo, TestInfoError } from '@playwright/test';
+import fs from "node:fs";
+import { Page, TestInfo, TestInfoError } from "@playwright/test";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { parseStackTraceLine } from 'playwright-core/lib/utilsBundle';
+import { parseStackTraceLine } from "playwright-core/lib/utilsBundle";
 
 const promptTemplate = `
 You are an expert in Playwright testing. 
@@ -36,27 +37,33 @@ export async function attachFixWithAI(page: Page, testInfo: TestInfo) {
     const prompt = buildPrompt({
       title: testInfo.title,
       error: testInfo.error,
-      ariaSnapshot: await page.locator('html').ariaSnapshot(),
+      ariaSnapshot: await page.locator("html").ariaSnapshot(),
     });
-    await testInfo.attach('🤖 Fix with AI: copy prompt and paste to AI chat', { body: prompt });
+    await testInfo.attach("Fix with AI: copy prompt and paste to AI chat", {
+      body: prompt,
+    });
   }
 }
 
-function buildPrompt({ title, error, ariaSnapshot }: { 
-    title: string, 
-    error: TestInfoError, 
-    ariaSnapshot: string
+function buildPrompt({
+  title,
+  error,
+  ariaSnapshot,
+}: {
+  title: string;
+  error: TestInfoError;
+  ariaSnapshot: string;
 }) {
-  const errorMessage = stripAnsiEscapes(error.message || '');
+  const errorMessage = stripAnsiEscapes(error.message || "");
   const snippet = getCodeSnippet(error);
 
-  if (!errorMessage || !snippet) return '';
+  if (!errorMessage || !snippet) return "";
 
   return promptTemplate
-    .replace('{title}', title)
-    .replace('{error}', errorMessage)
-    .replace('{snippet}', snippet)
-    .replace('{ariaSnapshot}', ariaSnapshot)
+    .replace("{title}", title)
+    .replace("{error}", errorMessage)
+    .replace("{snippet}", snippet)
+    .replace("{ariaSnapshot}", ariaSnapshot)
     .trim();
 }
 
@@ -66,8 +73,11 @@ function buildPrompt({ title, error, ariaSnapshot }: {
  */
 function stripAnsiEscapes(str: string): string {
   // eslint-disable-next-line max-len, no-control-regex
-  const ansiRegex = new RegExp('([\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~])))','g');
-  return str.replace(ansiRegex, '');
+  const ansiRegex = new RegExp(
+    "([\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~])))",
+    "g"
+  );
+  return str.replace(ansiRegex, "");
 }
 
 /**
@@ -79,22 +89,26 @@ function getCodeSnippet(error: TestInfoError) {
   if (!location?.file || !location.line) return;
 
   try {
-    const source = fs.readFileSync(location.file, 'utf8');
-    const lines = source.split('\n');
-    return lines.slice(location.line - 3, location.line + 4).join('\n');
+    const source = fs.readFileSync(location.file, "utf8");
+    const lines = source.split("\n");
+    return lines.slice(location.line - 3, location.line + 4).join("\n");
   } catch (e) {
-    // Failed to read the source file - that's ok.
+    console.log(`Failed to read the source file: ${e}`);
   }
 }
-  
+
 function getErrorLocation(error: TestInfoError) {
-  const lines = (error.stack || '').split('\n');
-  let firstStackLine = lines.findIndex(line => line.startsWith('    at '));
+  const lines = (error.stack || "").split("\n");
+  let firstStackLine = lines.findIndex((line) => line.startsWith("    at "));
   if (firstStackLine === -1) firstStackLine = lines.length;
   const stackLines = lines.slice(firstStackLine);
   for (const line of stackLines) {
     const frame = parseStackTraceLine(line);
     if (!frame || !frame.file || frame.file.includes(`node_modules`)) continue;
-    return { file: frame.file, column: frame.column || 0, line: frame.line || 0 };
+    return {
+      file: frame.file,
+      column: frame.column || 0,
+      line: frame.line || 0,
+    };
   }
 }

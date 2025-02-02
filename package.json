@@ -7,7 +7,7 @@
     "static-checks": "npx eslint . && npx tsc --noEmit",
     "regression": "npm run static-checks && npx playwright test --grep @regression",
     "runAll": "npm run clean-reports && npm run static-checks && npx playwright test",
-    "allure-report-single": "npx allure generate --single-file",
+    "allure-report-single": "npx allure generate --single-file --clean",
     "allure-report": "npx allure generate allure-results --clean && npx allure serve allure-results",
     "clean-reports": "node reportsCleanup.js"
   },

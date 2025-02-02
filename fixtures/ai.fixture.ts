@@ -1,5 +1,5 @@
 import { test as base } from "@playwright/test";
-import { attachFixWithAI } from "../tests/fixWithAi.ts";
+import { attachFixWithAI } from "../utils/fixWithAi.ts";
 
 export const aiFix = base.extend<{ fixWithAI: void }>({
   fixWithAI: [
