@@ -74,6 +74,13 @@ For info it uses the [recommended typescript rules](https://github.com/typescrip
 
 At the root of the project, create a `tsconfig.json` file. Use this project’s `tsconfig.json` as a guide, focusing on configuring it as a **module-based project** that allows both `import/export` and `require()` syntax. Remember to update `package.json` with `"type": "module"`:
 
+#### 2.3 Create script to perform static checks on your files
+
+```json
+"static-checks": "npx eslint . && npx tsc --noEmit",
+```
+
+
 ---
 
 ### 3. Framework configs
@@ -122,6 +129,10 @@ Remember you first use github.com to add secrets into the repo, but in order for
 
 ### 4. Running tests
 
+Standard way
+
+### 4. Running tests
+
 Standard way of running tests [can be found here](https://playwright.dev/docs/running-tests#running-tests)
 But you can also make some scripts. And we want scripts to be able to implement best practices
 
@@ -129,9 +140,7 @@ In your package.json at scripts , add the followings:
 
 ```json
   "scripts": {
-    "static-check": "npx eslint .",
-    "regression": "npm run static-check && npx playwright test --grep @regression",
-    "runAll": "npm run static-check && npx playwright test"
+    "runAll": "npm run clean-reports && npm run static-check && npx playwright test",
   },
 ```
 
