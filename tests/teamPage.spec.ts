@@ -8,7 +8,7 @@ test.describe("Team Page", () => {
     await page.goto("/");
   });
 
-  test("Verify team page", async ({ page }) => {
+  test("Verify team page", { tag: "@regression" }, async ({ page }) => {
     await page.getByTestId(viewTeamBtn).first().click();
     await expect(page.getByTestId(developerInfo)).toContainText("Developer");
   });

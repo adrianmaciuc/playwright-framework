@@ -72,7 +72,14 @@ export default defineConfig({
 });
 
 function getBaseUrl(): string {
-  return process.env.ENVIRONMENT == "dev"
-    ? "http://localhost:5173/"
-    : "https://z.martioli.com/";
+  switch (process.env.ENVIRONMENT) {
+    case "dev":
+      return "http://localhost:5173/";
+    case "stg":
+      return "https://staging.martioli.com/";
+    case "prd":
+      return "https://z.martioli.com/";
+    default:
+      throw new Error(`Unknown environment: ${process.env.ENVIRONMENT}`);
+  }
 }
