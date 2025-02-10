@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Static Check
-        run: npm run pre-check
+        run: npm run static-check
 
   test-run:
     needs: static-check
@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run your tests
-        run: npm run pre-check && npx playwright test
+        run: npm run runAll
         env:
           HOME: /root
           TOKEN: ${{ secrets.TOKEN }}
