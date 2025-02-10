@@ -143,7 +143,7 @@ env:
 ### 5. Reporters
 
 Playwright has its own built-in reporter and its pretty awesome, however I have found that Allure best fit most of my needs.
-Also you can mix them for practicability purposes
+Also I mix and use all of the below for practicability purposes
 
 Good option for CI for a first view on the failures
 
@@ -157,7 +157,13 @@ Good option if you ever want to take all the results and publish messages in sla
 reporter: ["json"];
 ```
 
-Most comprehensive reporter [Allure](https://allurereport.org/docs/playwright/)
+#### 5.1 Playwright Built-in Reporters
+
+Use built-in reporters for quick CI access and detailed debugging.
+
+#### 5.2 Allure Playwright Configurations
+
+Most comprehensive reporter with tons of configurations - [Allure](https://allurereport.org/docs/playwright/)
 
 ```typescript
 reporter: ["allure-playwright"];
@@ -169,11 +175,14 @@ To install allure reporter you must do
 npm install allure-playwright allure-commandline
 ```
 
-#### 5.1 Playwright Built-in Reporters
+Add reporter in playwright config file and if needed add extra configurations. I highly suggest handling actions such as API calls or evironment related with a custom error handler. By doing this you can combine with allure reporters categorize options, to always have a clear view on which tests fail, based on the type of failure (eg: environment issue, test data issue, etc)
 
-Use built-in reporters for quick CI access and detailed debugging.
+Important dependency detail:
+Allure reporter requires you to have `Java` installed on your machine to show you the results in browser. However if you generate results using `--single-file` param it will just give you a html file with everything you need, without the need to install Java. You can use the script below
 
-#### 5.2 Allure Playwright Configurations
+```bash
+npm run allure-report-single
+```
 
 **Contributing**
 
