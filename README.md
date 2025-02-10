@@ -119,10 +119,10 @@ env:
 Use the VS Code extension or run tests via terminal:
 
 ```bash
-npx playwright test path/to/your/test
+npx playwright test tests/specFileName.spec.ts
 ```
 
-or
+or use the package.json scripts
 
 ```bash
   "scripts": {
@@ -141,8 +141,10 @@ env:
 
 ### 5. Reporters
 
-Playwright has its own built-in reporter and its pretty awesome, however I have found that Allure best fit most of my needs.
-Also I mix and use all of the below for practicability purposes
+Playwright has its own built-in reporter and its pretty awesome, however I have found that Allure brings the most value for engineers to evaluate and debug, but also for management to have a clear view.
+I mix and use all of the below for practicability purposes
+
+#### 5.1 Additional Reporters
 
 Good option for CI for a first view on the failures
 
@@ -156,11 +158,15 @@ Good option if you ever want to take all the results and publish messages in sla
 reporter: ["json"];
 ```
 
-#### 5.1 Playwright Built-in Reporters
+#### 5.2 Playwright Built-in Reporter
 
 Use built-in reporters for quick CI access and detailed debugging.
 
-#### 5.2 Allure Playwright Configurations
+```typescript
+reporter: ["html"];
+```
+
+#### 5.3 Allure Playwright Configurations
 
 Most comprehensive reporter with tons of configurations - [Allure](https://allurereport.org/docs/playwright/)
 
