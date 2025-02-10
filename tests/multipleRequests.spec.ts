@@ -1,29 +1,31 @@
 import { test, expect } from "../fixtures/index.js";
-import { Route } from "@playwright/test";
+import { interceptApiCalls } from "../helpers/playwrightHelper.ts";
+
+const viewTeamBtn = "view-task-btn";
+
+let requests: string[];
 
 test.describe("Multiple Requests", () => {
-  test("Validate multiple same requests", async ({ page, homePage }) => {
-    const requests: string[] = [];
-    await page.route("**/api/**", async (route: Route) => {
-      if (route.request().url().includes("id/1")) {
-        await route.continue();
-        const response = await (await route.request().response())?.json();
-        requests.push(response);
-      } else await route.continue();
+  test("Validate multiple same requests", async ({ page }) => {
+    await test.step("Intercept all requests to endpoint /api/id/1", async () => {
+      requests = await interceptApiCalls(page, "**/api/**", "id/1");
     });
 
     await page.goto("/");
-    await homePage.viewTeamBtn().first().click();
+    await page.getByTestId(viewTeamBtn).first().click();
     await page.goBack();
-    await homePage.viewTeamBtn().first().click();
+    await page.getByTestId(viewTeamBtn).first().click();
 
-    await expect(async () => {
-      expect(requests.length).toBe(2);
-    }).toPass({
-      intervals: [1_000, 2_000, 5_000],
-      timeout: 15_000,
+    await test.step("Expect length of requests", async () => {
+      await expect(async () => {
+        expect(requests.length).toBe(2);
+      }).toPass({
+        intervals: [1_000, 2_000, 5_000],
+        timeout: 15_000,
+      });
     });
   });
+
   test.afterEach("Unroute all", async ({ page }) => {
     await page.unrouteAll({ behavior: "wait" });
   });

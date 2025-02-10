@@ -1,7 +1,7 @@
 {
   "name": "playwright-complete-framework",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "",
   "type": "module",
   "scripts": {
     "static-checks": "npx eslint . && npx tsc --noEmit",
@@ -12,8 +12,8 @@
   },
   "keywords": [],
   "author": "Adrian Maciuc",
-  "license": "ISC",
-  "description": "",
+  "license": "MIT",
+  "description": "A modular and scalable Playwright framework example.",
   "devDependencies": {
     "typescript": "5.6.3",
     "@faker-js/faker": "^9.0.1",

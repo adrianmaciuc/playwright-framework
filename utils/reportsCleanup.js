@@ -32,6 +32,11 @@ const cleanAllureResults = async () => {
   await cleanFolder(allureResultsPath);
 };
 
+const cleanAllureReport = async () => {
+  const allureResultsPath = path.join(process.cwd(), "allure-report");
+  await cleanFolder(allureResultsPath);
+};
+
 const cleanTestResults = async () => {
   const testResultsPath = path.join(process.cwd(), "test-results");
   await cleanFolder(testResultsPath);
@@ -44,6 +49,7 @@ const cleanPlaywrightReport = async () => {
 
 const cleanAllReports = async () => {
   await cleanAllureResults();
+  await cleanAllureReport();
   await cleanTestResults();
   await cleanPlaywrightReport();
 };
