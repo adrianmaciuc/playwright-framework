@@ -5,7 +5,6 @@ on:
   workflow_dispatch:
 
 jobs:
-
   setup-and-run-tests:
     # setup and run the tests in parallel machines, with each machine uploading its own results to artifacts
     # artifacts are shared among jobs and machines
@@ -18,29 +17,29 @@ jobs:
         shardTotal: [3]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Install Playwright browsers
-      run: npx playwright install chromium
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
 
-    - name: Run Playwright tests
-      run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Run Playwright tests
+        run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
-    # Once playwright finishes it will create a folder called 'allure-results'
-    - name: Upload results to Artifacts
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: allure-results-${{ matrix.shardIndex }} # name of the file you want to have once its uploaded
-        path: allure-results # path on the drive to where the reports are, from where to upload the files. 
-        retention-days: 10
+      # Once playwright finishes it will create a folder called 'allure-results'
+      - name: Upload results to Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.shardIndex }} # name of the file you want to have once its uploaded
+          path: allure-results # path on the drive to where the reports are, from where to upload the files.
+          retention-days: 10
 
   generate-report:
     # Merge reports after playwright tests, even if some shards have failed
@@ -49,49 +48,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
 
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-    - name: Install dependencies
-      run: npm ci
+      - name: AWS cli setup
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
 
-    - name: AWS cli setup
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-north-1
+      # We want a unique identifier to be used when we create subdirectories on our cloud for reports
+      - name: Set a timestamp
+        id: timestampid
+        # this will store current time with UTC in outputs.timestamp (eg of value: 20231028_233147Z)
+        run: echo "timestamp=$(date --utc +%Y%m%d_%H%M%SZ)" >> "$GITHUB_OUTPUT"
 
-    # We want a unique identifier to be used when we create subdirectories on our cloud for reports 
-    - name: Set a timestamp
-      id: timestampid
-      # this will store current time with UTC in outputs.timestamp (eg of value: 20231028_233147Z)
-      run: echo "timestamp=$(date --utc +%Y%m%d_%H%M%SZ)" >> "$GITHUB_OUTPUT" 
+      - name: Download allure results from GitHub Actions Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: allure-results* # pattern for multiple files previously stored as artifacts
+          merge-multiple: true
+          path: merged-allure-results # name of the folder where ALL results will be extracted
 
-    - name: Download allure results from GitHub Actions Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        pattern: allure-results* # pattern for multiple files previously stored as artifacts 
-        merge-multiple: true
-        path: merged-allure-results # name of the folder where ALL results will be extracted
+      # If you put the current history inside allure-results, Allure can generate a report that will merge history files
+      - name: Download current history files from S3
+        run: aws s3 cp s3://allure-history-ad/history/ ./merged-allure-results/history --recursive
 
-    # If you put the current history inside allure-results, Allure can generate a report that will merge history files
-    - name: Download current history files from S3
-      run: aws s3 cp s3://allure-history-ad/history/ ./merged-allure-results/history --recursive
+      # - name: Generate report
+      #   run: npx allure generate ./merged-allure-results
+      - name: Generate Allure report
+        run: npx allure generate ./merged-allure-results --clean
 
-    # - name: Generate report
-    #   run: npx allure generate ./merged-allure-results
-    - name: Generate Allure report 
-      run: npx allure generate ./merged-allure-results --clean
+      # Copy the history to the same S3 bucket to overwrite the previous history files with updated history
+      - name: Backup the history with the latest data
+        run: aws s3 cp ./allure-report/history s3://allure-history-ad/history/  --recursive
 
-    # Copy the history to the same S3 bucket to overwrite the previous history files with updated history
-    - name: Backup the history with the latest data
-      run: aws s3 cp ./allure-report/history s3://allure-history-ad/history/  --recursive
+      - name: Deploy html report to S3
+        run: aws s3 cp ./allure-report s3://allure-history-ad/report/${{ steps.timestampid.outputs.timestamp }}/ --recursive
 
-    - name: Deploy html report to S3
-      run: aws s3 cp ./allure-report s3://allure-history-ad/report/${{ steps.timestampid.outputs.timestamp }}/ --recursive
-
-    - name: Write URL in summary
-      run: echo "### Test results - http://allure-history-ad.s3-website.eu-north-1.amazonaws.com/report/${{ steps.timestampid.outputs.timestamp }}/index.html" >> $GITHUB_STEP_SUMMARY
+      - name: Write URL in summary
+        run: echo "### Test results - http://allure-history-ad.s3-website.eu-north-1.amazonaws.com/report/${{ steps.timestampid.outputs.timestamp }}/index.html" >> $GITHUB_STEP_SUMMARY
