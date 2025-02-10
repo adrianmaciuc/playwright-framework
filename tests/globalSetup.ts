@@ -15,5 +15,6 @@ if (!process.env.TOKEN) {
 }
 
 setup("global setup", async ({ baseURL }) => {
+  // any other configs you need to setup prior to running tests. It can be from setting up the environment to programatically login an user
   console.log(`baseUrl set to : ${baseURL}`);
 });

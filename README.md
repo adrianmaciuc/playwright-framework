@@ -87,11 +87,11 @@ Key points for `playwright.config.ts`:
 
 #### 3.2 Playwright globalSetup file
 
-Create a `globalSetup.ts` file in the `/tests` folder to check environment variables and perform other configurations.
+Create a `globalSetup.ts` file in the `/tests` folder to be used for any configurations you need prior to running tests.
 
 #### 3.3 Playwright Fixture Files
 
-Use Playwright's [Fixtures feature](https://playwright.dev/docs/test-fixtures) for flexibility. Merge fixtures in `fixtures/index.ts` for easy access in tests.
+Use Playwright's [Fixtures feature](https://playwright.dev/docs/test-fixtures) for flexibility. Merge multiple fixtures in `fixtures/index.ts` for easy access in tests.
 
 Example:
 
@@ -131,16 +131,9 @@ or
   }
 ```
 
-Ensure environment variables are set in the `.env` file.
-
-#### 4.1 Running tests locally
-
-Locally it is recommended that you run your tests using VS Code extension, because it is very conveniant and easy to use, but if you have multiple tests to run
-then you can just use the terminal and do standard `npx playwright test path/to/your/test` . Remember to setup in `.env` file your environment variables required.
-
 #### 4.2 Running Tests on CI
 
-Set environment variables in GitHub Actions and reference them in the workflow file. Use scripts from `package.json`:
+Set environment variables in GitHub Actions repo settings and reference them in the workflow file. You can also use scripts from `package.json`:
 
 ```yaml
 env:
@@ -152,9 +145,23 @@ env:
 Playwright has its own built-in reporter and its pretty awesome, however I have found that Allure best fit most of my needs.
 Also you can mix them for practicability purposes
 
-reporter: list - is good for CI for a first view on the failures
-reporter: json - is good if you ever want to take all the results and publish messages in slack
-reporter: allure-playwright - most comprehensive reporter
+Good option for CI for a first view on the failures
+
+```typescript
+reporter: ["list"];
+```
+
+Good option if you ever want to take all the results and publish messages in slack
+
+```typescript
+reporter: ["json"];
+```
+
+Most comprehensive reporter [Allure](https://allurereport.org/docs/playwright/)
+
+```typescript
+reporter: ["allure-playwright"];
+```
 
 To install allure reporter you must do
 
@@ -166,7 +173,7 @@ npm install allure-playwright allure-commandline
 
 Use built-in reporters for quick CI access and detailed debugging.
 
-#### 5.2 Allure Playwright Plugin
+#### 5.2 Allure Playwright Configurations
 
 **Contributing**
 

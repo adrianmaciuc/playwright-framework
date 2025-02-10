@@ -30,12 +30,10 @@ export default defineConfig({
     navigationTimeout: 15 * 1000,
 
     testIdAttribute: "data-testid",
-    baseURL:
-      process.env.ENVIRONMENT == "dev"
-        ? "http://localhost:5173/"
-        : "https://z.martioli.com/",
+    baseURL: getBaseUrl(),
     // Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
   },
 
   projects: [
@@ -53,5 +51,28 @@ export default defineConfig({
   // Output directory for test artifacts.
   outputDir: "test-results",
 
-  reporter: [["list"], ["allure-playwright"], ["html", { open: "never" }]],
+  reporter: [
+    ["list"],
+    [
+      "allure-playwright",
+      {
+        detail: true,
+        suiteTtitle: false,
+        environmentInfo: {
+          environmnet: getBaseUrl(),
+        },
+        categories: [
+          // Add categories to group tests in the report. If the error contains the message regex it will be grouped under the category
+          { name: "Environment issues", messageRegex: /.*environment issue.*/ },
+        ],
+      },
+    ],
+    ["html", { open: "never" }],
+  ],
 });
+
+function getBaseUrl(): string {
+  return process.env.ENVIRONMENT == "dev"
+    ? "http://localhost:5173/"
+    : "https://z.martioli.com/";
+}
