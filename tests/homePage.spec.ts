@@ -16,19 +16,20 @@ const addNewEntryBtn = "new-entry-submit-btn";
 const successfulEntryAddedMsg = "info-msg-entry-added";
 
 test.describe("Home Page Verifications", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
   test(
     "Verify cards are loaded on home page",
     { tag: "@regression" },
     async ({ page }) => {
-      await page.goto("/");
       await expect(page.getByText("Loading...")).not.toBeVisible();
       await expect(page.getByTestId(cardId).first()).toBeVisible();
     }
   );
 
   test("Add new entry on home page", async ({ page, testData }) => {
-    await page.goto("/");
-
     await test.step("Fill the form", async () => {
       await page.getByTestId(developerInput).fill(generateRandomString(6));
       await page.getByTestId(qaInputField).fill(faker.person.firstName());

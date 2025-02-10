@@ -72,7 +72,6 @@ function buildPrompt({
  * See: https://github.com/microsoft/playwright/blob/release-1.49/packages/playwright/src/reporters/base.ts#L491
  */
 function stripAnsiEscapes(str: string): string {
-  // eslint-disable-next-line max-len, no-control-regex
   const ansiRegex = new RegExp(
     "([\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[-a-zA-Z\\d\\/#&.:=?%@~_]*)*)?\\u0007)|(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PR-TZcf-ntqry=><~])))",
     "g"

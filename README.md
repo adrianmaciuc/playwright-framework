@@ -96,10 +96,9 @@ Use Playwright's [Fixtures feature](https://playwright.dev/docs/test-fixtures) f
 Example:
 
 ```typescript
-test("Add new entry on home page", async ({ page, homePage, testData }) => {
+test("Add new entry on home page", async ({ page, testData }) => {
   await page.goto("/");
-  await homePage.developerInputField().fill("dev");
-  await homePage.secretKeyInputField().fill(testData.secretKey);
+  await page.getByTestId(secretKeyInputField).fill(testData.secretKey);
 });
 ```
 

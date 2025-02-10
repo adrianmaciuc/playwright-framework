@@ -4,7 +4,7 @@
   "main": "",
   "type": "module",
   "scripts": {
-    "static-checks": "npx eslint . && npx tsc --noEmit",
+    "static-checks": "npm run clean-reports && npx eslint . && npx tsc --noEmit",
     "regression": "npm run static-checks && npx playwright test --grep @regression",
     "runAll": "npm run clean-reports && npm run static-checks && npx playwright test",
     "allure-report-single": "npx allure generate --single-file --clean",

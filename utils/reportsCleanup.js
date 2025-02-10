@@ -15,7 +15,7 @@ const cleanFolder = async (folderPath) => {
       console.log(
         `${path.basename(
           folderPath
-        )} folder does not exist, skipping initial cleanup`
+        )} folder does not exist, skipping cleanup for this folder`
       );
     } else {
       console.error(
