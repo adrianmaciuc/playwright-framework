@@ -14,5 +14,11 @@
     "allowImportingTsExtensions": true,
     "noEmit": true
   },
-  "exclude": ["node_modules"]
+  "exclude": [
+    "allure-reporter/",
+    "allure-results/",
+    "test-results/",
+    "playwright-report/",
+    "node_modules"
+  ]
 }

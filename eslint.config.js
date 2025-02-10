@@ -6,6 +6,12 @@ const { configs: typescriptConfigs } = typescript;
 export default [
   {
     files: ["**/*.ts", "**/*.tsx", "**/*.js"],
+    ignores: [
+      "allure-reporter/",
+      "allure-results/",
+      "test-results/",
+      "playwright-report/",
+    ],
     plugins: {
       "@typescript-eslint": typescript,
       playwright: playwright,
