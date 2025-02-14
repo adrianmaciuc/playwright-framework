@@ -1,6 +1,8 @@
 node_modules/
 /test-results/
 /playwright/.cache/
+.node-version
+yarn.lock
 
 # env
 .env
