@@ -8,13 +8,13 @@ test.describe("Team Page", () => {
     await page.goto("/");
   });
 
-  test("Verify team page", { tag: "@regression" }, async ({ page }) => {
+  test("Verify team page - fail", { tag: "@regression" }, async ({ page }) => {
     await page.getByTestId(viewTeamBtn).first().click();
-    await expect(page.getByTestId(developerInfo)).toContainText("Developer");
+    await expect(page.getByTestId(developerInfo)).toContainText("Developers");
   });
 
   test("Intentional fail test", async ({ page }) => {
-    await page.getByTestId(viewTeamBtn).click();
     await expect(page.getByTestId(viewTeamBtn).first()).toBeVisible();
+    await page.getByTestId(viewTeamBtn).click();
   });
 });

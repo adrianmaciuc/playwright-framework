@@ -21,7 +21,8 @@
     "@types/node": "^22.5.4",
     "@typescript-eslint/eslint-plugin": "^8.11.0",
     "@typescript-eslint/parser": "^8.11.0",
-    "eslint-plugin-playwright": "^2.0.0"
+    "eslint-plugin-playwright": "^2.0.0",
+    "eslint": "^9.20.1"
   },
   "dependencies": {
     "allure-commandline": "^2.32.0",
