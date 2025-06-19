@@ -125,9 +125,7 @@ npx playwright test tests/specFileName.spec.ts
 or use the package.json scripts
 
 ```bash
-  "scripts": {
     "runAll": "npm run clean-reports && npm run static-check && npx playwright test",
-  }
 ```
 
 #### 4.2 Running Tests on CI
@@ -144,29 +142,18 @@ env:
 Playwright has its own built-in reporter and its pretty awesome, however I have found that Allure brings the most value for engineers to evaluate and debug, but also for management to have a clear view.
 I mix and use all of the below for practicability purposes
 
-#### 5.1 Additional Reporters
+#### 5.1 Install Reporters
 
-Good option for CI for a first view on the failures
-
-```typescript
-reporter: ["list"];
-```
-
-Good option if you ever want to take all the results and publish messages in slack
+Html - the basic, good for debuggins
+json - good for advanced stuff , such as publish results in slack for example
+list - looks good in CI for quick debugging
+allure-playwright - to make your managers happy
 
 ```typescript
-reporter: ["json"];
+reporter: [["html"], ["list"], ["json"], ["allure-playwright"]];
 ```
 
-#### 5.2 Playwright Built-in Reporter
-
-Use built-in reporters for quick CI access and detailed debugging.
-
-```typescript
-reporter: ["html"];
-```
-
-#### 5.3 Allure Playwright Configurations
+#### 5.2 Allure Playwright Configurations
 
 Most comprehensive reporter with tons of configurations - [Allure](https://allurereport.org/docs/playwright/)
 
