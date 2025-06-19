@@ -59,11 +59,14 @@ To enforce best practices, add linters and plugins for TypeScript and Playwright
 npm install @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-playwright --save-dev
 ```
 
-Create an `eslint.config.js` file and configure the linters. Use the example of `eslint.config.js` here if you need help.
+Create an `eslint.config.js` file and configure the linters. 
+Use the example of `eslint.config.js` here if you need help. [link to eslint](https://github.com/adrianmaciuc/playwright-framework/blob/main/eslint.config.js)
 
 #### 2.2 Configure `tsconfig.json`
 
-Create a `tsconfig.json` file at the root of the project. Use this project’s `tsconfig.json` as a guide. Update `package.json` with `"type": "module"`.
+Create a `tsconfig.json` file at the root of the project. 
+Use this project’s `tsconfig.json` as a guide. [link to tsconfig.json](https://github.com/adrianmaciuc/playwright-framework/blob/main/tsconfig.json)
+Update `package.json` with `"type": "module"`.
 
 #### 2.3 Create a Script for Static Checks
 
